@@ -4,6 +4,7 @@ import br.com.alura.forum.model.Usuario
 import br.com.alura.forum.repository.UsuarioRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
@@ -13,8 +14,8 @@ class UsuarioService(private val repository: UsuarioRepository): UserDetailsServ
         return repository.getOne(id)
     }
 
-    override fun loadUserByUsername(username: String?): UserDetails {
-       val usuario = repository.findByEmail(username) ?: throw RuntimeException()
+    override fun loadUserByUsername(username: String): UserDetails {
+       val usuario = repository.findByEmail(username).orElseThrow { throw UsernameNotFoundException("Dados invalidos") }
         return UserDetail(usuario)
     }
 }
