@@ -25,7 +25,7 @@ class JWTUtil(
             .setSubject(username)
             .claim("role", authorities)
             .setExpiration(Date(System.currentTimeMillis() + expiration.toInt()))
-            .signWith(SignatureAlgorithm.HS256, secret.toByteArray())
+            .signWith(SignatureAlgorithm.HS512, secret.toByteArray())
             .compact()
     }
 
@@ -34,7 +34,7 @@ class JWTUtil(
         return try {
             Jwts.parser().setSigningKey(secret.toByteArray()).parseClaimsJws(jwt)
             true
-        } catch (exception: Exception) {
+        } catch (exception: IllegalArgumentException) {
             false
         }
     }
@@ -42,6 +42,6 @@ class JWTUtil(
     fun getAuthentication(jwt: String?): Authentication {
         val username = Jwts.parser().setSigningKey(secret.toByteArray()).parseClaimsJws(jwt).body.subject
         val user = usuarioService.loadUserByUsername(username)
-        return UsernamePasswordAuthenticationToken(username, user.authorities)
+        return UsernamePasswordAuthenticationToken(username, null, user.authorities)
     }
 }
