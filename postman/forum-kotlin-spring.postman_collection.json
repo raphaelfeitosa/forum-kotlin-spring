@@ -62,8 +62,60 @@
 		{
 			"name": "listarTodosTopicos",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFAZW1haWwuY29tIiwicm9sZSI6W3siYXV0aG9yaXR5IjoiTEVJVFVSQV9FU0NSSVRBIn1dLCJleHAiOjE2NDI5NzI3MDB9.v82g0kD3fIrXFmQcC4K29MQKZam9lxd5QZshfM0oUpQCZ8CuuBo9FuIxXApL0GhjUvDrqeEvnGxHMocyntz-hw",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/topicos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"topicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actuator",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFAZW1haWwuY29tIiwicm9sZSI6W3siYXV0aG9yaXR5IjoiTEVJVFVSQV9FU0NSSVRBIn1dLCJleHAiOjE2NDI5NzI3MDB9.v82g0kD3fIrXFmQcC4K29MQKZam9lxd5QZshfM0oUpQCZ8CuuBo9FuIxXApL0GhjUvDrqeEvnGxHMocyntz-hw",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"url": {
 					"raw": "localhost:8080/topicos",
 					"host": [
@@ -153,6 +205,34 @@
 					"path": [
 						"topicos",
 						"relatorio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"ana@email.com\",\n    \"password\": \"senha\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
 					]
 				}
 			},
