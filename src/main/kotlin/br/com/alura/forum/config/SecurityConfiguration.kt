@@ -28,7 +28,6 @@ class SecurityConfiguration(
         http?.
         csrf()?.disable()?.//Protege contra atack maliciosos
         authorizeRequests()?.
-        antMatchers("/h2-console/**")?.permitAll()?.
         antMatchers("/topicos/**")?.hasAuthority("LEITURA_ESCRITA")?.
         antMatchers(HttpMethod.POST, "/login")?.permitAll()?.
         anyRequest()?.authenticated()?.
@@ -47,6 +46,7 @@ class SecurityConfiguration(
     override fun configure(web: WebSecurity?) {
         web?.ignoring()?.antMatchers(
             "/api-docs.yaml",
+            "/api-docs",
             "/h2-console/**"
         )
     }
