@@ -6,12 +6,12 @@ import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
-import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class JWTUtil(
+class TokenService(
     private val usuarioService: UsuarioService
 ) {
     @Value("\${jwt.expiration}")
@@ -20,10 +20,12 @@ class JWTUtil(
     @Value("\${jwt.secret}")
     private lateinit var secret: String
 
-    fun generateToken(username: String, authorities: MutableCollection<out GrantedAuthority>): String? {
+//    fun generateToken(username: String, authorities: MutableCollection<out GrantedAuthority>): String? {
+    fun generateToken(authentication: Authentication): String? {
+    val usuario = authentication.principal as UserDetails
         return Jwts.builder()
-            .setSubject(username)
-            .claim("role", authorities)
+            .setSubject(usuario.username)
+            .claim("role", usuario.authorities)
             .setExpiration(Date(System.currentTimeMillis() + expiration.toInt()))
             .signWith(SignatureAlgorithm.HS512, secret.toByteArray())
             .compact()

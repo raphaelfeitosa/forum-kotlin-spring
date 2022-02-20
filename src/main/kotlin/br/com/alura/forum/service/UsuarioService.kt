@@ -14,8 +14,8 @@ class UsuarioService(private val repository: UsuarioRepository): UserDetailsServ
         return repository.getOne(id)
     }
 
-    override fun loadUserByUsername(username: String): UserDetails {
-       val usuario = repository.findByEmail(username).orElseThrow { throw UsernameNotFoundException("Dados invalidos") }
+    override fun loadUserByUsername(email: String): UserDetails {
+       val usuario = repository.findByEmail(email).orElseThrow { throw UsernameNotFoundException("Dados invalidos") }
         return UserDetail(usuario)
     }
 }
