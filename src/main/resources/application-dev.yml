@@ -1,18 +1,14 @@
 spring:
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:forum
-    username: sa
-    password:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/forum_api_db
+    username: root
+    password: password
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
         show_sql: true
         format_sql: true
-  h2:
-    console:
-      enabled: true
 jwt:
   secret: secret
   expiration: 600000
