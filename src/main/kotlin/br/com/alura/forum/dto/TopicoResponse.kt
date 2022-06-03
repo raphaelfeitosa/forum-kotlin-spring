@@ -2,6 +2,7 @@ package br.com.alura.forum.dto
 
 import br.com.alura.forum.model.StatusTopico
 import io.swagger.v3.oas.annotations.media.Schema
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class TopicoResponse(
@@ -20,5 +21,6 @@ data class TopicoResponse(
         description = "Data e hora do cadastro do topico na base de dados",
         example = "2022-02-20T15:45:50.950670312"
     )
-    val dataCriacao: LocalDateTime
+    val dataCriacao: LocalDateTime,
+    val dataAlteracao: LocalDate?
 )

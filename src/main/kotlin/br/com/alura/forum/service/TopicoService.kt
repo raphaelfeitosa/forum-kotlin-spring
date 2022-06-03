@@ -11,6 +11,7 @@ import br.com.alura.forum.repository.TopicoRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import javax.persistence.EntityManager
 
 @Service
@@ -52,6 +53,7 @@ class TopicoService(
             .orElseThrow { NotFoundException(notFoundMessage) }
         topico.titulo = request.titulo
         topico.mensagem = request.mensagem
+        topico.dataAlteracao = LocalDate.now()
         return topicoResponseMapper.map(topico)
     }
 
