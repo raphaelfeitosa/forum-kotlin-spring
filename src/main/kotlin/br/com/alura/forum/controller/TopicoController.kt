@@ -4,8 +4,16 @@ import br.com.alura.forum.dto.AtualizacaoTopicoRequest
 import br.com.alura.forum.dto.NovoTopicoRequest
 import br.com.alura.forum.dto.TopicoPorCategoriaResponse
 import br.com.alura.forum.dto.TopicoResponse
+import br.com.alura.forum.exception.ErrorResponse
+import br.com.alura.forum.model.Topico
 import br.com.alura.forum.service.TopicoService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.ArraySchema
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
@@ -24,6 +32,43 @@ import javax.validation.Valid
 @SecurityRequirement(name = "bearerAuth")
 class TopicoController(private val service: TopicoService) {
 
+    @Operation(
+        summary = "Obtem uma lista de topicos",
+        description = "Retorna uma lista de todos os topicos ou uma lista de topicos por nome do curso"
+//        responses = [
+//           ApiResponse(
+//               responseCode = "200",
+//               description = "Sucesso na busca de topicos",
+//               content = [Content(schema = Schema(implementation = ErrorResponse::class))]
+//           ),
+//            ApiResponse(
+//                responseCode = "500",
+//                description = "Erro interno no serviço",
+////                content = [Content(schema = Schema(implementation = ErrorResponse::class))]
+//            ),
+//        ]
+
+    )
+//    @ApiResponses(value = [
+//        ApiResponse(
+//            responseCode = "200",
+//            description = "Sucesso na busca de topicos",
+//            content = [Content(schema = Schema(implementation = ErrorResponse::class))]
+//        ),
+//        ApiResponse(
+//            responseCode = "500",
+//            description = "Erro interno no serviço",
+////                content = [Content(schema = Schema(implementation = ErrorResponse::class))]
+//        )
+//    ])
+
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Found Foos", content = [
+            (Content(mediaType = "application/json", array = (
+                    ArraySchema(schema = Schema(implementation = TopicoResponse::class)))))]),
+        ApiResponse(responseCode = "400", description = "Bad request", content = [Content()]),
+        ApiResponse(responseCode = "404", description = "Did not find any Foos", content = [Content()])]
+    )
     @GetMapping
     @Cacheable("topicos")
     fun listar(

@@ -20,7 +20,7 @@ class AutenticacaoController(
 ) {
 
     @PostMapping
-    fun autenticar(@RequestBody @Valid loginRequest: LoginRequest): ResponseEntity<Any> {
+    fun autentica(@RequestBody @Valid loginRequest: LoginRequest): ResponseEntity<TokenResponse> {
         val dadosLogin = loginRequest.converter()
 
         return try {

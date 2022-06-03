@@ -39,6 +39,7 @@ class SecurityConfiguration(
         )
     }
 
+    @Throws(Exception::class)
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth?.userDetailsService(userDetailsService)?.passwordEncoder(bCryptPasswordEncoder())
     }
@@ -46,9 +47,14 @@ class SecurityConfiguration(
     override fun configure(web: WebSecurity?) {
         web?.ignoring()?.antMatchers(
             "/api-docs.yaml",
-            "/api-docs",
-            "/h2-console/**"
-        )
+            "/api-docs/**",
+            "/h2-console/**",
+            "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/**.html",
+            "/webjars/**",
+            "/configuration/**"
+        );
     }
 
     @Bean
