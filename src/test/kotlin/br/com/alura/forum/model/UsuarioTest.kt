@@ -6,6 +6,6 @@ object UsuarioTest {
         id = 1,
         nome = "John Doe",
         email = "johndoe@email.com",
-        password = "123456"
+        password = "senha"
     )
 }

@@ -114,7 +114,6 @@ class TopicoController(private val service: TopicoService) {
     fun deletar(@PathVariable id: Long) {
         service.deletar(id)
     }
-
     @GetMapping("/relatorio")
     fun relatorio(): List<TopicoPorCategoriaResponse> {
         return service.relatorio()
